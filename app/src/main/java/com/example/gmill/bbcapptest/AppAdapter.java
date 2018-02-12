@@ -33,7 +33,7 @@ public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         View listItemView = convertView;
         if (listItemView == null) {
         listItemView = LayoutInflater.from(getContext()).inflate(
-        R.layout.app_list_item, parent, false);
+        R.layout.app_list_item3, parent, false);
         }
 
         App currentApp = getItem(position);
@@ -46,8 +46,8 @@ public View getView(int position, View convertView, @NonNull ViewGroup parent) {
 
         titleView.setText(currentApp.getTitle());
         descriptionView.setText(currentApp.getDescription());
-        ratingView.setText(currentApp.getRating());
-        priceView.setText(currentApp.getPrice());
+        ratingView.setText("Rating: " + currentApp.getRating());
+        priceView.setText("Price: " + currentApp.getPrice());
 
 
 

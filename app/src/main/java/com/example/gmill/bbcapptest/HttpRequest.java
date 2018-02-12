@@ -126,36 +126,16 @@ final class HttpRequest {
             Log.e(LOG_TAG, appArray.toString());
 
             for (int i = 0; i < appArray.length(); i++) {
-                String description = "",
-                        rating = "",
-                        price = "";
-                        
-
-
 
                 JSONObject currentApp = appArray.getJSONObject(i);
 
 
                 String title = currentApp.getString("trackName");
+                String description = currentApp.getString("description");
+                String rating = currentApp.getString("averageUserRating");
+                String price = currentApp.getString("formattedPrice");
+                Log.e( "HttpRequest", price + rating +description);
 
-                try {
-                    description = currentApp.getString("description");
-                } catch (JSONException e) {
-                    // No description!
-                }
-
-
-                try {
-                    rating = currentApp.getString("rating");
-                } catch (JSONException e) {
-                    // No description!
-                }
-
-                try {
-                    price = currentApp.getString("price");
-                } catch (JSONException e) {
-                    // No description!
-                }
                 String imageUrl = currentApp.getString("artworkUrl60");
 
                 App app = new App(title, description, rating, price, imageUrl);
