@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -69,7 +70,24 @@ public class AppActivity  extends AppCompatActivity
 
             mNoResultsTextView.setText("No internet connection found");
         }
+
+
+        // Set an item click listener on the ListView, which sends an intent to a web browser
+        // to open a website with more information about the selected article.
+        appListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
+                // Find the current article that was clicked on
+                App currentApp = mAdapter.getItem(position);
+                Intent intent = new Intent(AppActivity.this, AppDetailActivity.class);
+                intent.putExtra("app", currentApp);
+                startActivity(intent);
+            }
+
+
+        });
     }
+
 
     @Override
     public Loader<List<App>> onCreateLoader(int i, Bundle bundle) {

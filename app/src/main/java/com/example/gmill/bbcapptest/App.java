@@ -1,10 +1,12 @@
 package com.example.gmill.bbcapptest;
 
+import java.io.Serializable;
+
 /**
  * Created by gmill on 12/02/2018.
  */
 
-class App {
+class App implements Serializable {
     private final String mTitle,
             mDescription,
             mRating,
