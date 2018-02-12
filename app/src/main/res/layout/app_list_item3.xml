@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/double_vertical_padding">
 
     <ImageView
         android:id="@+id/imageView"
@@ -26,11 +27,11 @@
             android:layout_marginTop="@dimen/half_horizontal_margin"
             android:fontFamily="sans-serif-smallcaps"
             android:text="title"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@android:color/holo_red_dark"
             android:textStyle="bold" />
 
         <TextView
-
+            android:backgroundTint="@android:color/background_light"
             android:id="@+id/description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,7 +40,7 @@
             android:layout_marginTop="@dimen/standard_horizontal_margin"
             android:text="description"
             android:maxLines="4"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="@android:color/holo_red_light" />
     </LinearLayout>
 
 
@@ -50,6 +51,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:textColor="@android:color/holo_red_light"
             android:id="@+id/rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -58,6 +60,7 @@
             android:text="rating" />
 
         <TextView
+            android:textColor="@android:color/holo_red_light"
             android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

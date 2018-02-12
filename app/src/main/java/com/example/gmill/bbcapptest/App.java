@@ -20,10 +20,10 @@ class App implements Serializable {
             mPrice,
             mSmallImageUrl,
             mLargeImageUrl,
-            mName,
-            mScrnShotsUrls;
+            mName;
 
-    App(String title, String description, String rating, String price, String smallImageUrl, String largeImageUrl, String name, String scrnshotUrls) {
+
+    App(String title, String description, String rating, String price, String smallImageUrl, String largeImageUrl, String name) {
         mTitle = title;
         mDescription = description;
         mRating = rating;
@@ -31,7 +31,7 @@ class App implements Serializable {
         mSmallImageUrl = smallImageUrl;
         mLargeImageUrl = largeImageUrl;
         mName = name;
-        mScrnShotsUrls = scrnshotUrls;
+
     }
 
     String getTitle() {
@@ -59,8 +59,6 @@ class App implements Serializable {
     }
 
     String getName() { return mName; }
-
-    String getScrnShotsUrls() { return mScrnShotsUrls; }
 
     public static class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         final ImageView bmImage;

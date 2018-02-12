@@ -137,16 +137,12 @@ final class HttpRequest {
                 String rating = currentApp.getString("averageUserRating");
                 String price = currentApp.getString("formattedPrice");
                 String name = currentApp.getString("sellerName");
-                JSONArray scrnshotUrlsArray = currentApp.getJSONArray("screenshotUrls");
-                for (int b = 0; b < 4; b++) {
-                    scrnshotUrls += scrnshotUrlsArray.getString(b);
-                }
-                Log.e( "HttpRequest", price + rating +description);
+
 
                 String smallImageUrl = currentApp.getString("artworkUrl60");
                 String largeImageUrl = currentApp.getString("artworkUrl512");
 
-                App app = new App(title, description, rating, price, smallImageUrl, largeImageUrl, name, scrnshotUrls);
+                App app = new App(title, description, rating, price, smallImageUrl, largeImageUrl, name);
 
                 apps.add(app);
             }

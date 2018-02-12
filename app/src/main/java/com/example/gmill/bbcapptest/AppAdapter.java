@@ -50,9 +50,6 @@ public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         priceView.setText("Price: " + currentApp.getPrice());
 
         new App.DownloadImageTask(imageView).execute(currentApp.getSmallImageUrl());
-
-
-
         return listItemView;
         }
 
