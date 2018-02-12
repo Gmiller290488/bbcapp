@@ -1,5 +1,12 @@
 package com.example.gmill.bbcapptest;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.util.Log;
+import android.widget.ImageView;
+
+import java.io.InputStream;
 import java.io.Serializable;
 
 /**
@@ -11,14 +18,20 @@ class App implements Serializable {
             mDescription,
             mRating,
             mPrice,
-            mImageUrl;
+            mSmallImageUrl,
+            mLargeImageUrl,
+            mName,
+            mScrnShotsUrls;
 
-    App(String title, String description, String rating, String price, String imageUrl) {
+    App(String title, String description, String rating, String price, String smallImageUrl, String largeImageUrl, String name, String scrnshotUrls) {
         mTitle = title;
         mDescription = description;
         mRating = rating;
         mPrice = price;
-        mImageUrl = imageUrl;
+        mSmallImageUrl = smallImageUrl;
+        mLargeImageUrl = largeImageUrl;
+        mName = name;
+        mScrnShotsUrls = scrnshotUrls;
     }
 
     String getTitle() {
@@ -37,8 +50,41 @@ class App implements Serializable {
         return mPrice;
     }
 
-    String getImageUrl() {
-        return mImageUrl;
+    String getSmallImageUrl() {
+        return mSmallImageUrl;
+    }
+
+    String getLargeImageUrl() {
+        return mLargeImageUrl;
+    }
+
+    String getName() { return mName; }
+
+    String getScrnShotsUrls() { return mScrnShotsUrls; }
+
+    public static class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        final ImageView bmImage;
+
+        DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
     }
 }
 

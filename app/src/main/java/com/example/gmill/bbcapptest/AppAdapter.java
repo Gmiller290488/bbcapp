@@ -49,10 +49,14 @@ public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         ratingView.setText("Rating: " + currentApp.getRating());
         priceView.setText("Price: " + currentApp.getPrice());
 
+        new App.DownloadImageTask(imageView).execute(currentApp.getSmallImageUrl());
+
 
 
         return listItemView;
         }
+
+
 
 
 

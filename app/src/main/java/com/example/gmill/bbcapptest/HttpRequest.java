@@ -127,6 +127,7 @@ final class HttpRequest {
             Log.e(LOG_TAG, appArray.toString());
 
             for (int i = 0; i < appArray.length(); i++) {
+                String scrnshotUrls = "";
 
                 JSONObject currentApp = appArray.getJSONObject(i);
 
@@ -135,11 +136,17 @@ final class HttpRequest {
                 String description = currentApp.getString("description");
                 String rating = currentApp.getString("averageUserRating");
                 String price = currentApp.getString("formattedPrice");
+                String name = currentApp.getString("sellerName");
+                JSONArray scrnshotUrlsArray = currentApp.getJSONArray("screenshotUrls");
+                for (int b = 0; b < 4; b++) {
+                    scrnshotUrls += scrnshotUrlsArray.getString(b);
+                }
                 Log.e( "HttpRequest", price + rating +description);
 
-                String imageUrl = currentApp.getString("artworkUrl60");
+                String smallImageUrl = currentApp.getString("artworkUrl60");
+                String largeImageUrl = currentApp.getString("artworkUrl512");
 
-                App app = new App(title, description, rating, price, imageUrl);
+                App app = new App(title, description, rating, price, smallImageUrl, largeImageUrl, name, scrnshotUrls);
 
                 apps.add(app);
             }
