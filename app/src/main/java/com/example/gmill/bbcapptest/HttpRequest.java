@@ -31,8 +31,8 @@ final class HttpRequest {
     }
 
     static List<App> fetchAppData(String requestUrl) {
-        //URL url = createUrl(requestUrl);
-        URL url = createUrl("https://itunes.apple.com/search?media=software&entity=software&country=gb&term=bbc");
+        URL url = createUrl(requestUrl);
+        //URL url = createUrl("https://itunes.apple.com/search?media=software&entity=software&country=gb&term=bbc");
         String jsonResponse = null;
         try {
             jsonResponse = makeHttpRequest(url);
@@ -47,6 +47,9 @@ final class HttpRequest {
         URL url = null;
         try {
             url = new URL(stringUrl);
+            Log.e(LOG_TAG, "URL should be \"https://itunes.apple.com/search?media=software&entity=software&country=gb&term=bbc\"");
+            Log.e(LOG_TAG, "Url is" + url);
+
         } catch (MalformedURLException e) {
             Log.e(LOG_TAG, "Problem building the URL ", e);
         }
@@ -72,10 +75,8 @@ final class HttpRequest {
             // If the request was successful (response code 200),
             // then read the input stream and parse the response.
             if (connection.getResponseCode() == 200) {
-                Log.e(LOG_TAG, "response is 200");
                 inputStream = connection.getInputStream();
                 jsonResponse = readFromStream(inputStream);
-                Log.e(LOG_TAG, "after readfromstream " + jsonResponse);
             } else {
                 Log.e(LOG_TAG, "Error response code: " + connection.getResponseCode());
             }
@@ -94,10 +95,10 @@ final class HttpRequest {
     }
 
     private static String readFromStream(InputStream inputStream) throws IOException {
-        Log.e(LOG_TAG, "Im at readFromStream");
+
         StringBuilder output = new StringBuilder();
         if (inputStream != null) {
-            Log.e(LOG_TAG, "inputstream isnt null");
+
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
             BufferedReader reader = new BufferedReader(inputStreamReader);
             String line = reader.readLine();

@@ -73,18 +73,13 @@ public class AppActivity  extends AppCompatActivity
 
     @Override
     public Loader<List<App>> onCreateLoader(int i, Bundle bundle) {
-
-        Uri baseUri = Uri.parse(REQUEST_URL);
-        Uri.Builder uriBuilder = baseUri.buildUpon();
-
         Intent intent = getIntent();
         String searchTerm = intent.getStringExtra(MainActivity.SEARCH_TERM);
-
-        uriBuilder.appendQueryParameter("q", searchTerm);
+        String url = REQUEST_URL + searchTerm;
         Log.e(LOG_TAG, searchTerm);
 
 
-        return new AppLoader(this, uriBuilder.toString());
+        return new AppLoader(this, url);
     }
 
     @Override
