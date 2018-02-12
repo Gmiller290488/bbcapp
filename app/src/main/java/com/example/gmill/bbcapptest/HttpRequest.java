@@ -31,8 +31,8 @@ final class HttpRequest {
     }
 
     static List<App> fetchAppData(String requestUrl) {
-        URL url = createUrl(requestUrl);
-
+        //URL url = createUrl(requestUrl);
+        URL url = createUrl("https://itunes.apple.com/search?media=software&entity=software&country=gb&term=bbc");
         String jsonResponse = null;
         try {
             jsonResponse = makeHttpRequest(url);
@@ -72,8 +72,10 @@ final class HttpRequest {
             // If the request was successful (response code 200),
             // then read the input stream and parse the response.
             if (connection.getResponseCode() == 200) {
+                Log.e(LOG_TAG, "response is 200");
                 inputStream = connection.getInputStream();
                 jsonResponse = readFromStream(inputStream);
+                Log.e(LOG_TAG, "after readfromstream " + jsonResponse);
             } else {
                 Log.e(LOG_TAG, "Error response code: " + connection.getResponseCode());
             }
@@ -87,12 +89,15 @@ final class HttpRequest {
                 inputStream.close();
             }
         }
+        Log.e(LOG_TAG, "Connection ok");
         return jsonResponse;
     }
 
     private static String readFromStream(InputStream inputStream) throws IOException {
+        Log.e(LOG_TAG, "Im at readFromStream");
         StringBuilder output = new StringBuilder();
         if (inputStream != null) {
+            Log.e(LOG_TAG, "inputstream isnt null");
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
             BufferedReader reader = new BufferedReader(inputStreamReader);
             String line = reader.readLine();
@@ -100,12 +105,15 @@ final class HttpRequest {
                 output.append(line);
                 line = reader.readLine();
             }
+            Log.e(LOG_TAG, output.toString());
         }
+
         return output.toString();
     }
 
     private static List<App> extractFeatureFromJson(String appJSON) {
         if (TextUtils.isEmpty(appJSON)) {
+            Log.e(LOG_TAG, "json is empty");
             return null;
         }
 
@@ -115,38 +123,40 @@ final class HttpRequest {
             JSONObject baseJsonResponse = new JSONObject(appJSON);
 
             JSONArray appArray = baseJsonResponse.getJSONArray("results");
+            Log.e(LOG_TAG, appArray.toString());
 
             for (int i = 0; i < appArray.length(); i++) {
                 String description = "",
                         rating = "",
                         price = "";
+                        
+
+
 
                 JSONObject currentApp = appArray.getJSONObject(i);
-                JSONObject properties = currentApp.getJSONObject("app");
 
-                String title = properties.getString("title");
+
+                String title = currentApp.getString("trackName");
 
                 try {
-                    description = properties.getString("description");
+                    description = currentApp.getString("description");
                 } catch (JSONException e) {
                     // No description!
                 }
 
 
                 try {
-                    rating = properties.getString("rating");
+                    rating = currentApp.getString("rating");
                 } catch (JSONException e) {
                     // No description!
                 }
 
                 try {
-                    price = properties.getString("price");
+                    price = currentApp.getString("price");
                 } catch (JSONException e) {
                     // No description!
                 }
-
-                JSONObject imageObject = properties.getJSONObject("imageLinks");
-                String imageUrl = imageObject.getString("smallThumbnail");
+                String imageUrl = currentApp.getString("artworkUrl60");
 
                 App app = new App(title, description, rating, price, imageUrl);
 
